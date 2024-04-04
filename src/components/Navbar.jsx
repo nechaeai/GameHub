@@ -1,32 +1,32 @@
-import React from 'react'
-import {Link} from 'react-router-dom'
-import './NavbarStyles.css'
+import { Link as UnStyledLink } from 'react-router-dom';
+import styled from '@emotion/styled';
+
+const Link = styled(UnStyledLink)`
+  color: white;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  
+`;
 
 const Navbar = () => {
   return (
-  
-        <header>
-            <nav className='navbar'>
-            
-       
-                    <ul className="nav-menu">
-                    <li className='nav-item'>
-                        <Link to='/' className='nav-link'>RPS</Link>
-                    </li>
-             
-                    <li className='nav-item'>
-                        <Link to='/tic-tac' className='nav-link'>tic-tac</Link>
-                    </li>
-                    <li className='nav-item'>
-                        <Link to='/contact' className='nav-link'>Contact</Link>
-                    </li>
-                    </ul>
-              
-          
-            </nav>
-        </header>
-     
-  )
-}
+    <nav style={{ position: 'fixed', top: 0, width: '100%', backgroundColor: `#430000`, left: 0 }}>
+      <ul style={{ display: 'flex', justifyContent: 'space-around', listStyle: 'none', padding: 0 }}>
+        <li>
+          <Link to="/">Home</Link>
+        </li>
+        <li>
+          <Link to="/about">About</Link>
+        </li>
+        <li>
+          <Link to="/rps">RPS</Link>
+        </li>
+      </ul>
+    </nav>
+  );
+};
 
-export default Navbar
+export default Navbar;
