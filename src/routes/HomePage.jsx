@@ -8,6 +8,8 @@ export default function HomePage() {
       <p>You can Navigate to any of the following games:</p>
       <ul>
         <li><Link to={`/rps`}>Rock Paper Scissors</Link></li>
+        <li><Link to={`/tic-tac`}>Tic Tac Toe</Link></li>
+
       </ul>
     </div>
   );
