@@ -24,6 +24,9 @@ const Navbar = () => {
         <li>
           <Link to="/rps">RPS</Link>
         </li>
+        <li>
+          <Link to="/tic-tac">TicTac</Link>
+        </li>
       </ul>
     </nav>
   );
