@@ -1,90 +1,105 @@
 * {
     box-sizing: border-box;
-  }
-  
-  body {
+}
+
+body {
     font-family: sans-serif;
     margin: 20px;
     padding: 0;
-  }
-  
-  h1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 40px); /* Adjust for margin */
+    background-color: #f0f0f0;
+}
+
+h1, h2, h3, h4, h5, h6 {
     margin-top: 0;
+}
+
+h1 {
     font-size: 22px;
-  }
-  
-  h2 {
-    margin-top: 0;
+}
+
+h2 {
     font-size: 20px;
-  }
-  
-  h3 {
-    margin-top: 0;
+}
+
+h3 {
     font-size: 18px;
-  }
-  
-  h4 {
-    margin-top: 0;
+}
+
+h4 {
     font-size: 16px;
-  }
-  
-  h5 {
-    margin-top: 0;
+}
+
+h5 {
     font-size: 14px;
-  }
-  
-  h6 {
-    margin-top: 0;
+}
+
+h6 {
     font-size: 12px;
-  }
-  
-  code {
+}
+
+code {
     font-size: 1.2em;
-  }
-  
-  ul {
+}
+
+ul {
     padding-inline-start: 20px;
-  }
-  
-  * {
-    box-sizing: border-box;
-  }
-  
-  body {
-    font-family: sans-serif;
-    margin: 20px;
-    padding: 0;
-  }
-  
-  .square {
+}
+
+.square {
     background: #fff;
-    border: 1px solid #999;
+    border: 2px solid #999; /* Increased border for better visibility */
     float: left;
-    font-size: 24px;
+    font-size: 24px; /* Kept large for better readability */
     font-weight: bold;
-    line-height: 34px;
-    height: 34px;
+    line-height: 34px; /* Adjusted for centering text */
+    height: 100px; /* Increased size for a better game experience */
     margin-right: -1px;
     margin-top: -1px;
     padding: 0;
     text-align: center;
-    width: 34px;
-  }
-  
-  .board-row:after {
-    clear: both;
-    content: '';
-    display: table;
-  }
-  
-  .status {
+    width: 100px; /* Matched height for square aspect ratio */
+    cursor: pointer; /* Added cursor pointer for interactivity */
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+
+
+
+
+.status {
     margin-bottom: 10px;
-  }
-  .game {
+    font-size: 24px; /* Increased for visibility */
+}
+
+.game {
     display: flex;
-    flex-direction: row;
-  }
-  
-  .game-info {
+    flex-direction: column;
+    align-items: center;
+}
+
+.game-board {
+    margin-bottom: 20px;
+}
+
+.game-info {
     margin-left: 20px;
-  }
+}
+
+button {
+    background-color: #008CBA; /* Blue for visual appeal */
+    border: none;
+    color: rgb(0, 0, 0);
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
