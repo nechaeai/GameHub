@@ -9,11 +9,16 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: calc(100vh - 40px); /* Adjust for margin */
+    height: calc(100vh - 40px);
     background-color: #f0f0f0;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     margin-top: 0;
 }
 
@@ -51,28 +56,31 @@ ul {
 
 .square {
     background: #fff;
-    border: 2px solid #999; /* Increased border for better visibility */
+    border: 2px solid #999;
+    /* Increased border for better visibility */
     float: left;
-    font-size: 24px; /* Kept large for better readability */
+    font-size: 24px;
     font-weight: bold;
-    line-height: 34px; /* Adjusted for centering text */
-    height: 100px; /* Increased size for a better game experience */
+    line-height: 34px;
+    /* Adjusted for centering text */
+    height: 100px;
+    /* Increased size for a better game experience */
     margin-right: -1px;
     margin-top: -1px;
     padding: 0;
     text-align: center;
-    width: 100px; /* Matched height for square aspect ratio */
-    cursor: pointer; /* Added cursor pointer for interactivity */
-    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+    width: 100px;
+    /* Matched height for square aspect ratio */
+    cursor: pointer;
+    /* Added cursor pointer for interactivity */
+    transition: background-color 0.3s ease;
+    /* Smooth transition for hover effect */
 }
-
-
-
 
 
 .status {
     margin-bottom: 10px;
-    font-size: 24px; /* Increased for visibility */
+    font-size: 24px;
 }
 
 .game {
@@ -90,7 +98,7 @@ ul {
 }
 
 button {
-    background-color: #008CBA; /* Blue for visual appeal */
+    background-color: #b1d2dd;
     border: none;
     color: rgb(0, 0, 0);
     padding: 10px 20px;
@@ -102,4 +110,3 @@ button {
     transition-duration: 0.4s;
     cursor: pointer;
 }
-
