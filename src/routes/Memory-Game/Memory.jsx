@@ -17,6 +17,7 @@ const Memory = () => {
     const [turns, setTurns] = useState(0);
     const [score, setScore] = useState(0);
     const [gameCompleted, setGameCompleted] = useState(false);
+    const [gameStarted, setGameStarted] = useState(false);
 
     const shuffleCards = () => {
         const shuffledCards = [...cardImages, ...cardImages]
@@ -29,6 +30,7 @@ const Memory = () => {
         setTurns(0);
         setScore(0);
         setGameCompleted(false);
+        setGameStarted(true);
     };
 
     useEffect(() => {
@@ -64,24 +66,28 @@ const Memory = () => {
         <div className='MemoryApp'>
             <h1>Magic Match</h1>
             <button onClick={shuffleCards}>Start Game</button>
-            {gameCompleted ? (
-                <div className="completion-message">
-                    <p>You hit the max score!</p>
-                </div>
-            ) : (
-                <div className='score-board'>
-                    <p>Score: {score}</p>
-                    <p>Turns: {turns}</p>
-                </div>
-            )}
-            <div className='card-grid'>
-                {cards.map((card, index) => (
-                    <div className={`card ${matchedCards.has(index) ? 'matched' : ''} ${openCards.includes(index) ? 'flipped' : ''}`} key={card.id} onClick={() => handleCardClick(index)}>
-                        <img className='front' src={card.src} alt='card front' />
-                        <img className='back' src='./imgs/cover.png' alt='card back' />
+            {gameStarted && (
+                <>
+                    {gameCompleted ? (
+                        <div className="completion-message">
+                            <p>You hit the max score!</p>
+                        </div>
+                    ) : (
+                        <div className='score-board'>
+                            <p>Score: {score}</p>
+                            <p>Turns: {turns}</p>
+                        </div>
+                    )}
+                    <div className='card-grid'>
+                        {cards.map((card, index) => (
+                            <div className={`card ${matchedCards.has(index) ? 'matched' : ''} ${openCards.includes(index) ? 'flipped' : ''}`} key={card.id} onClick={() => handleCardClick(index)}>
+                                <img className='front' src={card.src} alt='card front' />
+                                <img className='back' src='./imgs/cover.png' alt='card back' />
+                            </div>
+                        ))}
                     </div>
-                ))}
-            </div>
+                </>
+            )}
         </div>
     );
 }
