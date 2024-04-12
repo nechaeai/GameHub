@@ -47,3 +47,9 @@
     opacity: 0;
     z-index: 0; /* When flipped, back image z-index lower than front */
 }
+
+.card.flipped .front {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: all;
+}
