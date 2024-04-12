@@ -11,6 +11,7 @@ import AboutPage from './routes/AboutPage.jsx'
 import ErrorPage from './routes/ErrorPage.jsx'
 import Game from './routes/RPS-Game/Game.jsx'
 import TicTac from './routes/Tic-Tac-Toe/TicTac.jsx'
+import Memory from './routes/Memory-Game/Memory.jsx'
 
 
 
@@ -36,7 +37,12 @@ const routes = createBrowserRouter([
         path: `/tic-tac`,
         element: <TicTac />,
       },
+      {
+        path: `/memory-game`,
+        element: <Memory />,
+      },
     ]
+  
   }
 ], {basename: import.meta.env.BASE_URL})
 
