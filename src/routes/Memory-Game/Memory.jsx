@@ -2,13 +2,15 @@ import React from 'react';
 import { useState } from 'react';
 
 const cardImages = [
-    { src: 'image1.jpg' },
-    { src: 'image2.jpg' },
-    { src: 'image3.jpg' },
-    { src: 'image1.jpg' },
-    { src: 'image2.jpg' },
-    { src: 'image3.jpg' }
+    { src: '/imgs/bottle.png'},
+    { src: '/imgs/diamond-ring.png'},
+    { src: '/imgs/samurai.png'},
+    { src: '/imgs/scroll.png'},
+    { src: '/imgs/shield.png'},
+    { src: '/imgs/sword.png'}
+
 ];
+
 const Memory = () => {
     
 const [cards, setCards] = useState([]);
@@ -23,7 +25,6 @@ const [turns, setTurns] = useState(0);
      setTurns(0);
     };
 console.log(cards, turns);
-
     return (
         <div className='MemoryApp'>
             <h1>Magic Match</h1>
