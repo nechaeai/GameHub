@@ -53,3 +53,17 @@
     opacity: 1;
     pointer-events: all;
 }
+
+
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+        visibility: hidden;
+        height: 0;  
+        padding: 0;
+    }
+}
+
+.card.matched {
+    animation: fadeOut 1s forwards;  
+}
