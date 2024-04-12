@@ -1,29 +1,49 @@
 .card-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr); /* Adjust the number of columns as needed */
-    gap: 10px;
+    gap: 20px;
+    margin-top: 40px;
 }
 
 .card {
+    width: 100px; /* Adjust as needed */
+    height: 150px; /* Adjust as needed */
+    position: relative;
+    cursor: pointer;
     perspective: 1000px;
-
 }
 
 .card .front,
 .card .back {
+    position: absolute;
     width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    transition: transform 0.3s, opacity 0.3s ease;
     backface-visibility: hidden;
-    transition: transform 0.6s;
 }
 
 .card .front {
     transform: rotateY(180deg);
+    opacity: 0;
+    z-index: 1; /* Front image z-index set lower than back */
 }
 
-.card.flip .front {
-    transform: rotateY(0);
+.card .back {
+    transform: rotateY(0deg);
+    opacity: 1;
+    z-index: 2; /* Back image z-index set higher to be on top initially */
 }
 
-.card.flip .back {
+.card.flipped .front {
+    transform: rotateY(0deg);
+    opacity: 1;
+    z-index: 3; /* When flipped, front image z-index higher than back */
+}
+
+.card.flipped .back {
     transform: rotateY(-180deg);
+    opacity: 0;
+    z-index: 0; /* When flipped, back image z-index lower than front */
 }

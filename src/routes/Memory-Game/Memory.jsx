@@ -1,54 +1,54 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import './Memory.css';
 
 const cardImages = [
-    { src: './imgs/bottle.png' },
-    { src: './imgs/diamond-ring.png' },
-    { src: './imgs/samurai.png' },
-    { src: './imgs/scroll.png' },
-    { src: './imgs/shield.png' },
-    { src: './imgs/sword.png' }
-
+    { src: './imgs/bottle.png', matched: false },
+    { src: './imgs/diamond-ring.png', matched: false },
+    { src: './imgs/samurai.png', matched: false },
+    { src: './imgs/scroll.png', matched: false },
+    { src: './imgs/shield.png', matched: false },
+    { src: './imgs/sword.png', matched: false }
 ];
 
 const Memory = () => {
-
     const [cards, setCards] = useState([]);
-    const [turns, setTurns] = useState(0);
+    // Using a Set for flippedCards to handle unique IDs
+    const [flippedCards, setFlippedCards] = useState(new Set());
 
     const shuffleCards = () => {
         const shuffledCards = [...cardImages, ...cardImages]
             .sort(() => Math.random() - 0.5)
-            .map((card) => ({ ...card, id: Math.random() }));
+            .map((card, index) => ({ ...card, id: index })); // Use index for unique ID
 
         setCards(shuffledCards);
-        setTurns(0);
+        setFlippedCards(new Set()); // Reset the flipped cards
     };
-    console.log(cards, turns);
+
+    const handleCardClick = (id) => {
+        setFlippedCards((prevFlippedCards) => {
+            const newFlippedCards = new Set(prevFlippedCards);
+            if (newFlippedCards.has(id)) {
+                newFlippedCards.delete(id);
+            } else {
+                newFlippedCards.add(id);
+            }
+            return newFlippedCards;
+        });
+    };
+
     return (
         <div className='MemoryApp'>
             <h1>Magic Match</h1>
             <button onClick={shuffleCards}>Start Game</button>
-
-
             <div className='card-grid'>
-                {cards.map((card) => (
-                    <div className='card' key={card.id}>
-                        <div>
-                        <img className='front' src={card.src} alt='card front' />
+                {cards.map(card => (
+                    <div className={`card ${flippedCards.has(card.id) ? 'flipped' : ''}`} key={card.id} onClick={() => handleCardClick(card.id)}>
+                        <img className={`front ${flippedCards.has(card.id) ? 'visible' : ''}`} src={card.src} alt='card front' />
                         <img className='back' src='./imgs/cover.png' alt='card back' />
-
                     </div>
-
-
-
-        
+                ))}
+            </div>
         </div>
-        ))}
-        </div>
-        </div >
-    
     );
 }
 
