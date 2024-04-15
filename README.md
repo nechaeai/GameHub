@@ -29,4 +29,4 @@ I should get **(20 )** out of 20 on this assignment.
 
 - **What resources did you use?**
 - <!-- Answer below this line -->
--  ChatGpt, MDN Web Docs
+-  ChatGpt, MDN Web Docs, For Whac-a-mole I used https://www.smashingmagazine.com/2021/05/get-started-whac-a-mole-react-game/
