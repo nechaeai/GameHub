@@ -1,6 +1,6 @@
 import { Fragment, useEffect, useRef, useState } from 'react'
 import gsap from 'https://cdn.skypack.dev/gsap'
-import './WhackAMole.css'
+import './WhacAMole.css'
 
 const TIME_LIMIT = 30000
 const MOLE_SCORE = 100
@@ -103,7 +103,7 @@ const Timer = ({ time, interval = 1000, onEnd }) => {
   return <div className='info-text'>{`Time: ${internalTime / 1000}s`}</div>
 }
 
-const WhackAMole = () => {
+const WhacAMole = () => {
   const [playing, setPlaying] = useState(false)
   const [finished, setFinished] = useState(false)
   const [score, setScore] = useState(0)
@@ -126,7 +126,7 @@ const WhackAMole = () => {
     <Fragment>
       {!playing && !finished &&
         <Fragment>
-          <h1>Whac a Mole</h1>
+          <h1>Whac-A-Mole</h1>
           <button onClick={startGame}>Start Game</button>
         </Fragment>
       }
@@ -168,4 +168,4 @@ const WhackAMole = () => {
   )
 }
 
-export default WhackAMole
+export default WhacAMole
