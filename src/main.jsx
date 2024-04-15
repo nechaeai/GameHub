@@ -11,6 +11,7 @@ import AboutPage from './routes/AboutPage.jsx'
 import ErrorPage from './routes/ErrorPage.jsx'
 import Game from './routes/RPS-Game/Game.jsx'
 import TicTac from './routes/Tic-Tac-Toe/TicTac.jsx'
+import WhackAMole from './routes/WhackAMole/WhackAMole.jsx'
 
 
 
@@ -35,6 +36,10 @@ const routes = createBrowserRouter([
       {
         path: `/tic-tac`,
         element: <TicTac />,
+      },
+      {
+        path: `/whack-a-mole`,
+        element: <WhackAMole />,
       },
     ]
   }

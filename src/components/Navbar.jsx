@@ -27,6 +27,9 @@ const Navbar = () => {
         <li>
           <Link to="/tic-tac">TicTac</Link>
         </li>
+        <li>
+          <Link to="/whack-a-mole">Whack-A-Mole</Link>
+        </li>
       </ul>
     </nav>
   );
