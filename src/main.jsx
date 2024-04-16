@@ -50,8 +50,8 @@ const routes = createBrowserRouter([
 
       },
       {
-        path: `/worldle`,
-        element: <Worldle />
+        path: `/wordle`,
+        element: <Wordle />
       }
     ]
   
