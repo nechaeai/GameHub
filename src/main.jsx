@@ -13,7 +13,7 @@ import Game from './routes/RPS-Game/Game.jsx'
 import TicTac from './routes/Tic-Tac-Toe/TicTac.jsx'
 import WhacAMole from './routes/WhacAMole/WhacAMole.jsx'
 import Memory from './routes/Memory-Game/Memory.jsx'
-import Worldle from './routes/Wordle/Worldle.jsx'
+import Wordle from './routes/Wordle/Wordle.jsx'
 
 
 
