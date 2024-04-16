@@ -56,6 +56,9 @@ const Navbar = () => {
         <li>
           <Link to="/whac-a-mole">Whac-A-Mole</Link>
         </li>
+        <li>
+          <Link to="/Worldle">Wordle</Link>
+        </li>
       </ul>
     </nav>
 /*=======
