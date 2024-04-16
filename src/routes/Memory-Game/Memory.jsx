@@ -47,7 +47,7 @@ const Memory = () => {
                 setMatchedCards(newMatched);
                 setScore(prevScore => prevScore + 10);
                 setOpenCards([]);
-                
+
                 // Check if the game is completed
                 if (newMatched.size === cards.length) {
                     setGameCompleted(true);
@@ -72,17 +72,17 @@ const Memory = () => {
     return (
         <div className='MemoryApp'>
             <h1>Magic Match</h1>
-            <button onClick={shuffleCards}>Start Game</button>  // Button to start the game
+            <button onClick={shuffleCards}>Start Game</button>      {/* //Button to start the game */}
             {gameStarted && (
                 <>
                     {gameCompleted ? (
                         <div className="completion-message">
-                            <p>You hit the max score!</p>  // Show completion message
+                            <p>You hit the max score!</p>  {/*// Show completion message*/}
                         </div>
                     ) : (
                         <div className='score-board'>
-                            <p>Score: {score}</p>  // Display current score
-                            <p>Turns: {turns}</p>  // Display turn count
+                            <p>Score: {score}</p>  {/* Display current score*/}
+                            <p>Turns: {turns}</p>  {/* Display turn count*/}
                         </div>
                     )}
                     <div className='card-grid'>
