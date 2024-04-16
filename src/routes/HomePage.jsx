@@ -11,7 +11,7 @@ export default function HomePage() {
         <li><Link to={`/tic-tac`}>Tic Tac Toe</Link></li>
         <li><Link to={`/memory-game`}>Memory Game</Link></li>
         <li><Link to={`/whack-a-mole`}>Whac-A-Mole</Link></li>
-        <li><Link to={`/Worldle`}> Wordle</Link></li>
+        <li><Link to={`/Wordle`}> Wordle</Link></li>
       </ul>
     </div>
   );

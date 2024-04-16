@@ -57,7 +57,7 @@ const Navbar = () => {
           <Link to="/whac-a-mole">Whac-A-Mole</Link>
         </li>
         <li>
-          <Link to="/Worldle">Wordle</Link>
+          <Link to="/Wordle">Wordle</Link>
         </li>
       </ul>
     </nav>
