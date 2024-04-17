@@ -75,7 +75,7 @@ const Mole = ({ onWhack, points, delay, speed, pointsMin = 10 }) => {
         ref={buttonRef}
         onClick={whack}
       >
-        <span className="sr-only">Whack</span>
+      
       </button>
     </div>
   )
