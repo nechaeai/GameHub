@@ -21,12 +21,12 @@ I should get **(20 )** out of 20 on this assignment.
 
 - **What do you think of this completion time?**
 <!-- Answer below this line -->
-- It took me the same completion time as with React RPS assignment.  
+- Was our first collaborative project so there were some issues, but overall we feel good  
 
 - **In hindsight, what would you do differently?**
 - <!-- Answer below this line -->
-- The most difficult part was routing and then I was just doing TicTac Toe tutorial. It was very useful tutorial that helped me to build Tic Tac Toe faster than I expected.
+- Communication was key, we should have better explained the timelines and step in development we were at on our parts
 
 - **What resources did you use?**
 - <!-- Answer below this line -->
--  ChatGpt, MDN Web Docs, For Whac-a-mole I used https://www.smashingmagazine.com/2021/05/get-started-whac-a-mole-react-game/
+-  ChatGpt, MDN Web Docs, For Whac-a-mole Tanner used the tutorial at https://www.smashingmagazine.com/2021/05/get-started-whac-a-mole-react-game/,
