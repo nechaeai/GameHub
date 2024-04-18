@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import './Wordle.css';
-import Board from './Board';
 
 function App() {
   const maxTries = 6; // Maximum number of tries allowed
@@ -12,6 +11,7 @@ function App() {
   const [usedLetters, setUsedLetters] = useState([]);
   const [timeLeft, setTimeLeft] = useState(60); // 60 seconds timer
   const [inputWord, setInputWord] = useState('');
+  const [wordMatrix, setWordMatrix] = useState([]);
   
 
   useEffect(() => {
@@ -23,6 +23,8 @@ function App() {
     if (timeLeft === 0) {
       setIsGameLost(true);
     }
+
+    // Timer (has negative countdown until start over)
 
     const timer = setInterval(() => {
       setTimeLeft(prevTime => prevTime - 1);
@@ -49,6 +51,8 @@ function App() {
     }
   }, [currentWord]);
 
+  // Sees if word exists or not
+
   const fetchWord = () => {
     fetch('https://it3049c-hangman.fly.dev')
       .then(response => response.json())
@@ -70,6 +74,7 @@ function App() {
       return false;
     }
 
+    // word validity
     try {
       const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
       if (!response.ok) {
@@ -108,6 +113,7 @@ function App() {
   const handleLetterClick = (letter) => {
     setGuess(guess + letter);
   };
+  // Start Over
 
   const resetGame = () => {
     fetchWord();
@@ -117,7 +123,29 @@ function App() {
     setUsedLetters([]);
     setTimeLeft(60);
   };
-
+  const renderWordMatrix = () => {
+    return wordMatrix.map((row, rowIndex) => (
+      <div key={rowIndex} className="row">
+        {row.map((letter, colIndex) => {
+          let colorClass = '';
+          if (inputWord) {
+            if (inputWord[colIndex] === currentWord[colIndex]) {
+              colorClass = 'green'; // Correct position
+            } else if (currentWord.includes(inputWord[colIndex])) {
+              colorClass = 'yellow'; // Incorrect position
+            } else {
+              colorClass = 'grey'; // Not in the word
+            }
+          }
+          return (
+            <div key={colIndex} className={`box ${colorClass}`}>
+              {letter}
+            </div>
+          );
+        })}
+      </div>
+    ));
+  };
 
   
 
@@ -125,7 +153,7 @@ function App() {
     <div className="App">
       <h1>Wordle</h1>
       <div className="timer">Time left: {timeLeft} seconds</div>
-      <div className="word-matrix">{Board}</div>
+      <div className="word-matrix">{renderWordMatrix()}</div>
       <div className="tries-left">Tries left: {triesLeft}</div>
       {!isGameWon && !isGameLost && (
         <>
