@@ -1,140 +1,86 @@
-import {useState, useEffect } from 'react';
-import './Wordle.css';
+import { useState, useEffect } from 'react';
 
-const Wordle = () => {
-    const [word, setWord] = useState('');
-    const [guess, setGuess] = useState('');
-    const [attempts, setAttempts] = useState(0);
-    const [grid, setGrid] = useState([]);
-    const [gameOver, setGameOver] = useState(false);
-    const [startTime, setStartTime] = useState(null);
-    const [elapsedTime, setElapsedTime] = useState(0);
+const WordleGame = () => {
+  const words = ["HELLO", "WORLD", "APPLE", "BANANA", "ORANGE"]; // List of possible words
+  const [secretWord, setSecretWord] = useState('');
+  const [guess, setGuess] = useState('');
+  const [attempts, setAttempts] = useState(0);
+  const [feedback, setFeedback] = useState('');
+  const [time, setTime] = useState(0);
 
-    useEffect(() => {
-        fetchRandomWord();
-    }, []);
+  // Generate a random word when the component mounts
+  useEffect(() => {
+    generateRandomWord();
+  }, []);
 
-    useEffect(() => {
-        if (word !== '') {
-            setGrid(Array(word.length).fill('_'));
+  // Function to generate a random word
+  const generateRandomWord = () => {
+    const randomIndex = Math.floor(Math.random() * words.length);
+    setSecretWord(words[randomIndex]);
+  };
+
+  // Timer logic
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTime((prevTime) => prevTime + 1);
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setAttempts(attempts + 1);
+
+    // Check if the guess is correct
+    if (guess.toUpperCase() === secretWord) {
+      setFeedback('You guessed the word! Congratulations!');
+    } else {
+      // Compare the guess to the secret word
+      let result = '';
+      for (let i = 0; i < secretWord.length; i++) {
+        if (secretWord[i] === guess.toUpperCase()[i]) {
+          result += guess[i].toUpperCase();
+        } else if (secretWord.includes(guess.toUpperCase()[i])) {
+          result += '+';
+        } else {
+          result += '-';
         }
-    }, [word]);
+      }
+      setFeedback(result);
+    }
+  };
 
-    useEffect (() => { 
-        if (startTime && !gameOver) {
-            const interval = setInterval(() => {
-                const currentTime = Math.floor((Date.now() - startTime) / 1000);
-                setElapsedTime(currentTime);
-            }, 1000);
-            return () => clearInterval(interval);
-        }
-    }, [startTime, gameOver]);
+  const handleKeyboardClick = (letter) => {
+    setGuess(guess + letter);
+  };
 
-    const fetchRandomWord = async () => {
-        try {
-            const response = await fetch('https://it3049c-hangman.fly.dev');
-            const data = await response.json();
-            if (data.word.length === 5) {
-                setWord(data.word.toLowerCase());
-            } else {
-                fetchRandomWord();
-            }
-        } catch (error) {
-            console.log('Error with fetching word:', error);
-        }
-    };
-
-    const handleGuessChange = (event) => {
-        setGuess(event.target.value.toLowerCase());
-    };
-
-    const checkGuess = async () => {
-        try {
-            const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
-            if (response.ok) {
-                const data = await response.json();
-                if (data.length > 0) {
-                    const newGrid = [...grid];
-                    let correct = 0;
-
-                    for (let i = 0; i < word.length; i++) {
-                        if (guess[i] === word[i]) {
-                            newGrid[i] = guess[i].toUpperCase();
-                            correct++;
-                        }
-                    }
-
-                    setGrid(newGrid);
-                    setAttempts((prevAttempts) => prevAttempts + 1);
-
-                    if (correct === word.length) {
-                        setGameOver(true);
-                        stopTimer();
-                    } else if (attempts + 1 === 5) {
-                        setGameOver(true);
-                        stopTimer();
-                    }
-                } else {
-                    alert ('Invalid word!');
-                }
-            } else {
-                alert('Invalid word!');
-            }
-        } catch(error) {
-            console.error('Error in checking word:', error);
-        }
-    };
-
-    const resetGame = () => {
-        fetchRandomWord();
-        setGuess('');
-        setAttempts(0);
-        setGrid([]);
-        setGameOver(false);
-        setStartTime(null);
-        setElapsedTime(0);
-    };
-
-    const startTimer = () => {
-        setStartTime(Date.now());
-    };
-        
-    const stopTimer = () => {
-        const endTime = Date.now();
-        const elapsedTimeInSeconds = Math.floor((endTime - startTime) / 1000);
-        setElapsedTime(elapsedTimeInSeconds);
-    };
-
-    return (
-        <div className="wordle-container">
-          <h1>Welcome to Wordle!</h1>
-          <p>Try to guess the word.</p>
-          <div className="wordle-grid">
-            {grid.map((letter, index) => (
-              <span key={index} className="letter">{letter}</span>
-            ))}
-          </div>
-          {!gameOver && (
-            <div>
-              <input type="text" value={guess} onChange={handleGuessChange} />
-              <button onClick={checkGuess}>Guess</button>
-              {!startTime && (
-                <button onClick={startTimer}>Start Game</button>
-              )}
-            </div>
-          )}
-          {gameOver && (
-            <div>
-              <p>Out of attempts. The word was: {word}</p>
-              <p>Time taken: {elapsedTime} seconds.</p>
-              <button onClick={resetGame}>Play Again</button>
-            </div>
-          )}
-        </div>
-      );
-    
- 
-
+  return (
+    <div>
+      <h1>Wordle Game</h1>
+      <p>Guess the 5-letter word!</p>
+      <p>Time: {time} seconds</p>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          value={guess}
+          maxLength={5}
+          onChange={(e) => setGuess(e.target.value)}
+          required
+        />
+        <button type="submit">Guess</button>
+      </form>
+      <div>
+        Virtual Keyboard:
+        {Array.from(Array(26)).map((_, index) => (
+          <button key={index} onClick={() => handleKeyboardClick(String.fromCharCode(65 + index))}>
+            {String.fromCharCode(65 + index)}
+          </button>
+        ))}
+      </div>
+      <p>Attempts: {attempts}</p>
+      <p>{feedback}</p>
+    </div>
+  );
 };
 
-export default Wordle;
+export default WordleGame;
