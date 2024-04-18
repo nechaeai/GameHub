@@ -1,7 +1,7 @@
 
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import WordleRow from './WordleRow';
+import WordleRow from './src/routes/Wordle/WordleRow';
 import Keyboard from './Keyboard';
 
 const Board = ({ words, targetWords }) => {
