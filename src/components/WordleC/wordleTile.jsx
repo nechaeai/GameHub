@@ -2,7 +2,7 @@ import React from 'react';
 
 
 export default function WordleTile() {
-    const [letter, setLetter] = useState('K')
+    const [letter, setLetter] = useState('')
     const [completed, setCompleted] = useState(true)
     const [color, setColor] = useState({back: 'white', font: 'black'})
 
