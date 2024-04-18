@@ -49,6 +49,7 @@ const Memory = () => {
                 setOpenCards([]);
 
                 // Check if the game is completed
+                //vvvv
                 if (newMatched.size === cards.length) {
                     setGameCompleted(true);
                 }
