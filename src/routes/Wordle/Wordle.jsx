@@ -1,10 +1,9 @@
-import WordleGrid from "../../components/WordleC/WordleGrid";
+import ./Wordle.css
 
-const Wordle = () => {
+function Wordle() {
     return (
         <div>
-        <h1>Wordle</h1>
-        <WordleGrid />
+            <h1>Wordle</h1>
         </div>
     );
 }
