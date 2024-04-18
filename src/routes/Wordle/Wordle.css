@@ -1,0 +1,56 @@
+.App {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.timer {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.word-matrix {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.box {
+  width: 40px;
+  height: 40px;
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+  font-size: 20px;
+}
+
+.box.selected {
+  background-color: lightblue;
+}
+
+.tries-left {
+  margin-top: 20px;
+}
+
+form {
+  margin-bottom: 20px;
+}
+
+.keyboard {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.keyboard button {
+  margin: 5px;
+  padding: 10px;
+  font-size: 16px;
+}
