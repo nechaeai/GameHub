@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import propTypes from 'prop-types';
 
-const WordleRow = ({ word, targetWords }) => {
+const wordleRow = ({ word, targetWords }) => {
   const [guess, setGuess] = useState('');
-  const [isCorrect, setIsCorrect] = useState(false);
+const WordleRow = ({ word, targetWords }) => {
+    const [isCorrect, setIsCorrect] = React.useState(false);
 
   const handleChange = (e) => {
     setGuess(e.target.value.toUpperCase());
@@ -34,9 +35,9 @@ const WordleRow = ({ word, targetWords }) => {
   );
 };
 
-WordleRow.propTypes = {
+wordleRow.propTypes = {
     word: propTypes.string.isRequired,
     targetWords: propTypes.string.isRequired,
 };
 
-export default WordleRow;
+export default wordleRow;

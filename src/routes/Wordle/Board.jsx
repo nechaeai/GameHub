@@ -1,7 +1,7 @@
 
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import WordleRow from './src/routes/Wordle/WordleRow';
+import wordleRow from './src/routes/Wordle/wordleRow';
 import Keyboard from './Keyboard';
 
 const Board = ({ words, targetWords }) => {
@@ -18,14 +18,14 @@ const Board = ({ words, targetWords }) => {
     });
   };
 
-  return (
+return (
     <div>
-      {columns.map((word, index) => (
-        <WordleRow key={index} word={words} targetWord={targetWords[index]} />
-      ))}
-      <Keyboard onInput={handleInput} />
+        {columns.map((word, index) => (
+            <wordleRow key={index} word={words} targetWords={targetWords[index]} />
+        ))}
+        <Keyboard onInput={handleInput} />
     </div>
-  );
+);
 };
 
 Board.propTypes = {
