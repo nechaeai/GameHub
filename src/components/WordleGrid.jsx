@@ -1,4 +1,0 @@
-
-
-const WordleGrid = ({ wordle, onGuess }) => {
-    
