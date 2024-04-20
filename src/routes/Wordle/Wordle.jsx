@@ -40,25 +40,24 @@ function Wordle() {
 
 
 
-  // Update grid state with the guess
-  const updateGridStateWithGuess = (guess) => {
-    const newGridState = [...gridState];
-    const results = getGuessResults(guess);
-  
-    newGridState[currentAttempt] = Array.from({ length: wordLength }, (_, index) => {
-      const letter = guess[index] || ''; // Fill with an empty string if no guess for this cell
-      const status = letter ? results[index] : 'neutral'; // Use 'neutral' status for cells without guesses
-      return { letter, status };
-    });
+ const updateGridStateWithGuess = (guess) => {
+  const newGridState = [...gridState];
+  const results = getGuessResults(guess);
 
-    setGridState(newGridState);
+  newGridState[currentAttempt] = Array.from({ length: wordLength }, (_, index) => {
+    const letter = guess[index] || ''; // Fill with an empty string if no guess for this cell
+    const status = letter ? results[index] : 'neutral'; // Use 'neutral' status for cells without guesses
+    return { letter, status };
+  });
 
-    // Check win condition
-    if (guess.toLowerCase() === currentWord.toLowerCase()) {
-      setIsGameWon(true);
-      setTimeLeft(0); // Stops the timer
-    }
-  };
+  setGridState(newGridState);
+
+  // Check win condition
+  if (guess.toLowerCase() === currentWord.toLowerCase()) {
+    setIsGameWon(true);
+    setTimeLeft(0); // Stops the timer
+  }
+};
 
   // Get guess results by comparing the guess with the current word
   const getGuessResults = (guess) => {
@@ -66,9 +65,9 @@ function Wordle() {
       if (letter.toLowerCase() === currentWord[index]) {
         return 'correct';
       } else if (currentWord.includes(letter.toLowerCase())) {
-        return 'misplaced';
+        return 'present';
       }
-      return 'wrong';
+      return 'absent';
     });
   };
 
