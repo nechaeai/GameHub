@@ -2,158 +2,150 @@ import { useState, useEffect } from 'react';
 import './Wordle.css';
 import Board from './Board';
 
-function App() {
-  const maxTries = 6; // Maximum number of tries allowed
+function Wordle() {
+  const maxTries = 6;
+  const wordLength = 5;
   const [currentWord, setCurrentWord] = useState('');
-  const [guess, setGuess] = useState('');
-  const [triesLeft, setTriesLeft] = useState(maxTries);
+  const [currentAttempt, setCurrentAttempt] = useState(0);
+  const [timeLeft, setTimeLeft] = useState(60);
+  const [inputWord, setInputWord] = useState('');
   const [isGameWon, setIsGameWon] = useState(false);
   const [isGameLost, setIsGameLost] = useState(false);
-  const [usedLetters, setUsedLetters] = useState([]);
-  const [timeLeft, setTimeLeft] = useState(60); // 60 seconds timer
-  const [inputWord, setInputWord] = useState('');
-  
+  const [gridState, setGridState] = useState(
+    Array(maxTries).fill().map(() => Array(wordLength).fill({ letter: '', status: '' }))
+  );
 
+  // Effect to fetch a new word when the component mounts
   useEffect(() => {
     fetchWord();
   }, []);
 
-  // Check if the game is won
+  // Timer effect
   useEffect(() => {
-    if (timeLeft === 0) {
+    if (timeLeft <= 0) {
       setIsGameLost(true);
     }
-
-    const timer = setInterval(() => {
-      setTimeLeft(prevTime => prevTime - 1);
-    }, 1000);
-
-    return () => clearInterval(timer);
   }, [timeLeft]);
 
-  useEffect(() => {
-    if (currentWord.length === 5) {
-      const matrix = [];
-      for (let i = 0; i < 6; i++) {
-        const row = [];
-        for (let j = 0; j < 5; j++) {
-          if (j < currentWord.length) {
-            row.push(currentWord[j]);
-          } else {
-            row.push('');
-          }
-        }
-        matrix.push(row);
-      }
-      setWordMatrix(matrix);
+  // Fetch a random word from an API
+  const fetchWord = async () => {
+    try {
+      const response = await fetch('https://it3049c-hangman.fly.dev');
+      const data = await response.json();
+      setCurrentWord(data.word.toLowerCase());
+    } catch (error) {
+      console.error('Error fetching word:', error);
     }
-  }, [currentWord]);
-
-  const fetchWord = () => {
-    fetch('https://it3049c-hangman.fly.dev')
-      .then(response => response.json())
-      .then(data => setCurrentWord(data.word.toLowerCase()))
-      .catch(error => console.error('Error fetching word:', error));
   };
 
-  const handleGuessChange = (event) => {
-    setGuess(event.target.value.toLowerCase());
+
+
+  // Update grid state with the guess
+  const updateGridStateWithGuess = (guess) => {
+    const newGridState = [...gridState];
+    const results = getGuessResults(guess);
+  
+    newGridState[currentAttempt] = Array.from({ length: wordLength }, (_, index) => {
+      const letter = guess[index] || ''; // Fill with an empty string if no guess for this cell
+      const status = letter ? results[index] : 'neutral'; // Use 'neutral' status for cells without guesses
+      return { letter, status };
+    });
+
+    setGridState(newGridState);
+
+    // Check win condition
+    if (guess.toLowerCase() === currentWord.toLowerCase()) {
+      setIsGameWon(true);
+      setTimeLeft(0); // Stops the timer
+    }
   };
 
+  // Get guess results by comparing the guess with the current word
+  const getGuessResults = (guess) => {
+    return guess.split('').map((letter, index) => {
+      if (letter.toLowerCase() === currentWord[index]) {
+        return 'correct';
+      } else if (currentWord.includes(letter.toLowerCase())) {
+        return 'misplaced';
+      }
+      return 'wrong';
+    });
+  };
+
+  // Handle input word change
   const handleWordChange = (event) => {
     setInputWord(event.target.value.toLowerCase());
   };
-
-  const checkGuess = async (word) => {
-    if (word.length !== 5) {
-      alert('Please enter a word with 5 letters.');
-      return false;
-    }
-
-    try {
-      const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
-      if (!response.ok) {
-        throw new Error('Word not found in dictionary');
-      }
-      const data = await response.json();
-      return true;
-    } catch (error) {
-      console.error('Error checking word:', error);
-      return false;
-    }
-  };
-
-  const handleGuessSubmit = async (event) => {
-    event.preventDefault();
-
-    if (!inputWord) {
-      alert('Please enter a word.');
-      return;
-    }
-
-    const isValidGuess = await checkGuess(inputWord);
-    if (!isValidGuess) {
-      return;
-    }
-
-    if (inputWord !== currentWord) {
-      setTriesLeft(triesLeft - 1);
-    } else {
-      setIsGameWon(true);
-    }
-
+// Handle guess submission
+const handleGuessSubmit = (event) => {
+  event.preventDefault();
+  if (inputWord.length !== wordLength) {
+    alert('Please enter a 5 letter word.');
+    setInputWord(''); // Clear the input field if the word is not 5 letters long
+    return;
+  }
+  if (currentAttempt < maxTries) {
+    updateGridStateWithGuess(inputWord);
     setInputWord('');
-  };
+    setCurrentAttempt((prev) => prev + 1);
+  }
 
-  const handleLetterClick = (letter) => {
-    setGuess(guess + letter);
-  };
+  if (currentAttempt + 1 >= maxTries) {
+    setTimeLeft(0); // Will trigger the game over effect
+  }
+};
 
+
+  // Reset the game to the initial state
   const resetGame = () => {
-    fetchWord();
-    setTriesLeft(maxTries);
+    setCurrentWord('');
+    setCurrentAttempt(0);
+    setTimeLeft(60);
+    setInputWord('');
     setIsGameWon(false);
     setIsGameLost(false);
-    setUsedLetters([]);
-    setTimeLeft(60);
+    setGridState(
+      Array(maxTries).fill().map(() => Array(wordLength).fill({ letter: '', status: '' }))
+    );
+    fetchWord();
   };
 
+  // Start a timer when the game begins
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft((prevTime) => (prevTime > 0 ? prevTime - 1 : 0));
+    }, 1000);
 
-  
+    // Clear the timer when the game is won, lost, or the component is unmounting
+    return () => clearInterval(timer);
+  }, [isGameWon, isGameLost]);
 
   return (
-    <div className="App">
+    <div className="wordle">
       <h1>Wordle</h1>
-      <div className="timer">Time left: {timeLeft} seconds</div>
-      <div className="word-matrix">{Board}</div>
-      <div className="tries-left">Tries left: {triesLeft}</div>
+      <Board gridState={gridState} />
+      {isGameLost && <div className="message">Time's up or max tries reached! The word was {currentWord}.</div>}
+      {isGameWon && <div className="message">Congratulations! You've won!</div>}
       {!isGameWon && !isGameLost && (
         <>
+          <div className="timer">Time left: {timeLeft} seconds</div>
+          <div className="tries-left">Tries left: {maxTries - currentAttempt}</div>
           <form onSubmit={handleGuessSubmit}>
             <input
               type="text"
               value={inputWord}
               onChange={handleWordChange}
-              placeholder="Enter your guess (5 letters)"
+              maxLength={5}
+              disabled={currentAttempt >= maxTries}
+              placeholder="Enter your guess"
             />
-            <button type="submit">Guess</button>
+            <button type="submit" disabled={currentAttempt >= maxTries || inputWord.length !== 5}>Guess</button>
           </form>
-          <div className="keyboard">
-            {Array.from(Array(26), (_, i) => String.fromCharCode(97 + i)).map((letter, index) => (
-              <button key={index} onClick={() => handleLetterClick(letter)}>{letter}</button>
-            ))}
-          </div>
+          {(isGameLost || isGameWon) && <button onClick={resetGame}>Reset Game</button>}
         </>
-      )}
-      {isGameWon && <div className="result won">You won!</div>}
-      {isGameLost && <div className="result lost">You lost! The word was {currentWord}.</div>}
-      {(isGameWon || isGameLost) && (
-        <button onClick={resetGame}>Play Again</button>
       )}
     </div>
   );
 }
 
-export default App;
-
-
+export default Wordle;

@@ -1,56 +1,119 @@
-.App {
-  text-align: center;
-  margin-top: 50px;
+:root {
+  --background-color: #F5F8FF;
+  /* Dark mode background */
+  --cell-color: #ffffff;
+  /* Slightly lighter than the background for contrast */
+  --text-color: #0B1623;
+  /* Light text for readability */
+  --border-color: #3A3A3C;
+  /* Border color for cells */
+  --cell-size: 60px;
+  /* Adjusted to increase cell size */
+  --font-size: 2rem;
+  /* Adjusted font size for readability */
+  --wrong: #FF4D4D;
+  --misplaced: #FFCC00;
+  --correct: #00CC66;
 }
 
-.timer {
-  font-size: 24px;
-  margin-bottom: 20px;
-}
-
-.word-matrix {
-  display: flex;
-  flex-direction: column;
-}
-
-.row {
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
   display: flex;
   justify-content: center;
-  margin-bottom: 10px;
-}
-
-.box {
-  width: 40px;
-  height: 40px;
-  border: 1px solid black;
-  display: flex;
   align-items: center;
+  height: 100vh;
+}
+
+.wordle {
+  display: grid;
+  place-items: center;
+  min-height: 80vh;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(9, auto);
+  grid-gap: 5px;
+  /* Adjust if more space is needed */
+  padding: 5px;
+  /* Add padding to the grid container if necessary */
+}
+
+.cell {
+  width: var(--cell-size);
+  height: var(--cell-size);
+  background-color: var(--cell-color);
+  border: 2px solid var(--border-color);
+  color: var(--text-color);
+  font-size: var(--font-size);
+  font-weight: bold;
+  /* Make the letters bold */
+  display: flex;
   justify-content: center;
-  margin-right: 10px;
-  font-size: 20px;
+  align-items: center;
+  text-transform: uppercase;
 }
 
-.box.selected {
-  background-color: lightblue;
+.cell.correct {
+  background-color: var(--correct);
+  border-color: var(--correct);
 }
 
+.cell.misplaced {
+  background-color: var(--misplaced);
+  border-color: var(--misplaced);
+}
+
+.cell.wrong {
+  background-color: var(--wrong);
+  border-color: var(--wrong);
+}
+
+.timer,
 .tries-left {
-  margin-top: 20px;
+  font-size: 1.2rem;
+  margin: 10px 0;
 }
 
 form {
-  margin-bottom: 20px;
-}
-
-.keyboard {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  gap: 10px;
   margin-top: 20px;
 }
+.cell.neutral {
+  background-color: transparent; /* Or whatever your default cell background is */
+  color: transparent; /* Hide the text color if there's no letter */
+}
+input[type="text"] {
+  font-size: 1.3rem;
+  padding: 5px;
+  width: 200px;
+  border: 2px solid var(--border-color);
+  background-color: var(--input-background);
+  color: var(--input-text-color);
+}
 
-.keyboard button {
-  margin: 5px;
-  padding: 10px;
-  font-size: 16px;
+button {
+  padding: 10px 20px;
+  font-size: 1.4rem;
+  background-color: var(--button-background);
+  color: var(--button-text-color);
+  border: none;
+  cursor: pointer;
+}
+
+button:disabled {
+  background-color: #767676;
+  cursor: not-allowed;
+}
+
+.message {
+  font-size: 1.2rem;
+  color: #100a0a;
+  margin-top: 20px;
+  text-align: center;
 }
