@@ -3,8 +3,8 @@ import './Wordle.css';
 import Board from './Board';
 
 function Wordle() {
-  const maxTries = 5;
-  const wordLength = 6;
+  const maxTries = 6;
+  const wordLength = 5;
   const [currentWord, setCurrentWord] = useState('');
   const [currentAttempt, setCurrentAttempt] = useState(0);
   const [timeLeft, setTimeLeft] = useState(60);
