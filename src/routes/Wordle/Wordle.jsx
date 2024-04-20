@@ -67,7 +67,7 @@ function Wordle() {
       } else if (currentWord.includes(letter.toLowerCase())) {
         return 'misplaced';
       }
-      return 'absent';
+      return 'wrong';
     });
   };
 
