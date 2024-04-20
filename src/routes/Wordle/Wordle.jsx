@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import './Wordle.css';
-import './Board';
+import Board from './Board';
 
 function Wordle() {
   const maxTries = 6;
