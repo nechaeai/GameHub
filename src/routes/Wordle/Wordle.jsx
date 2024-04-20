@@ -65,7 +65,7 @@ function Wordle() {
       if (letter.toLowerCase() === currentWord[index]) {
         return 'correct';
       } else if (currentWord.includes(letter.toLowerCase())) {
-        return 'present';
+        return 'misplaced';
       }
       return 'absent';
     });
